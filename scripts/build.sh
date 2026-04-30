@@ -57,10 +57,11 @@ compress_file() {
   echo "  · $file"
   # Headless invocation of the /caveman:compress slash command.
   # --permission-mode=acceptEdits lets the skill write its backup + compressed
-  # output without an interactive prompt. stdout is noisy, keep it out of logs.
+  # output without an interactive prompt. stdout is noisy, keep it out of logs;
+  # stderr passes through so caveman failures surface their underlying cause.
   if ! claude -p "/caveman:compress $abs_file" \
       --permission-mode=acceptEdits \
-      >/dev/null 2>&1; then
+      >/dev/null; then
     echo "    ERROR: caveman compression failed for $file" >&2
     return 1
   fi
