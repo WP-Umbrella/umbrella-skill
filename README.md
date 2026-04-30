@@ -10,7 +10,7 @@
 
 You're looking at the first AI agent built for WordPress agencies, powered by [WP Umbrella](https://wp-umbrella.com) infrastructure.
 
-WP Umbrella is the monitoring and maintenance platform trusted by WordPress professionals to manage their clients' sites — uptime, updates, backups, performance, and security, all in one place. This plugin connects Claude directly to that infrastructure through the [WP Umbrella Public API](https://docs.wp-umbrella.com), so you can run your entire maintenance workflow by talking instead of clicking. 
+WP Umbrella is the monitoring and maintenance platform trusted by WordPress professionals to manage their clients' sites — uptime, updates, backups, performance, and security, all in one place. This plugin connects Claude directly to that infrastructure through the [WP Umbrella Public API](https://wp-umbrella.readme.io/), so you can run your entire maintenance workflow by talking instead of clicking. 
 
 We have a [2 weeks free trial without credit card](https://app.wp-umbrella.com/register) so you can get started if you are not a client already.
 
