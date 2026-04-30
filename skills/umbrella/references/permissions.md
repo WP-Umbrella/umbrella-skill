@@ -33,7 +33,7 @@ If you want to frontload the config before you ever see a prompt, add this to `~
 {
   "permissions": {
     "allow": [
-      "Bash(curl -sS -H \"Authorization: Bearer *\" *public-api.wp-umbrella.com*)",
+      "Bash(curl -sS -H \"Authorization: Bearer *\" https://public-api.wp-umbrella.com/*)",
       "Bash(jq *)",
       "Bash(head -n *)"
     ]
