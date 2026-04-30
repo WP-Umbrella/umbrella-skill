@@ -108,7 +108,7 @@ echo "Tracking process: $PROCESS_ID"
 ```bash
 for i in $(seq 1 24); do   # 24 × 5s = 2 min max
   STATUS=$(curl -sS -H "Authorization: Bearer $TOKEN" \
-    "https://public-api.wp-umbrella.com/processes?per_page=20" \
+    "https://public-api.wp-umbrella.com/projects/<ID>/processes?per_page=20" \
     | jq -r ".data[] | select(.id==\"$PROCESS_ID\") | .code // empty")
   if [ -n "$STATUS" ]; then
     echo "Process finished with code: $STATUS"
@@ -118,7 +118,7 @@ for i in $(seq 1 24); do   # 24 × 5s = 2 min max
 done
 ```
 
-If the loop times out, tell the user the update is still queued and give them the `processId` to check later with `GET /projects/<ID>/processes`.
+If the loop times out, tell the user the update is still queued and give them the `processId` to check later with `GET /projects/<ID>/processes` (same endpoint as the poll).
 
 ## Step 7 — verify and report
 
