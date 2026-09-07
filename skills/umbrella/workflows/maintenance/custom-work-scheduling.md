@@ -21,14 +21,14 @@ This workflow covers **creation**. The API also exposes `GET` (list), `GET /{cus
 | Field | Required | Type / values | Notes |
 |---|---|---|---|
 | `name` | **yes** | string | Short title shown in the dashboard and reports |
-| `description` | no | string | Free text — but see the Step 2 quirk: the API currently 500s without it |
+| `description` | **yes (in practice)** | string | Optional per the spec, but the API currently 500s without it ([#30](https://github.com/WP-Umbrella/umbrella-skill/issues/30)) — see Step 2 |
 | `execution_date` | **yes** | `YYYY-MM-DD` | Date the work is (or was) done; for recurring works, the first occurrence |
 | `estimated_time` | **yes** | number | Duration value |
 | `estimated_time_unit` | **yes** | `MINUTES` \| `HOURS` \| `DAYS` | Unit of `estimated_time` |
 | `is_recurring` | **yes** | boolean | **Always send it** — `false` for one-time works |
 | `frequency` | if recurring | `WEEKLY` \| `MONTHLY` \| `QUARTERLY` | |
 | `type_frequency` | if recurring | `MONDAY`…`SUNDAY` or `BEGIN_Q1`…`BEGIN_Q4` | Weekday for `WEEKLY`; quarter anchor for `QUARTERLY` |
-| `specific_day` | if recurring | number | Day of month (1–31) for `MONTHLY`. Only required for `MONTHLY` by the schema, but see the temporary quirk below |
+| `specific_day` | if recurring | number | Day of month (1–31) for `MONTHLY`. Only required for `MONTHLY` by the schema, but see the temporary quirk below ([#31](https://github.com/WP-Umbrella/umbrella-skill/issues/31)) |
 
 Do **not** send `plugin_keys` or `clear_cache`: older versions of the spec listed them, but the create endpoint silently ignores them — nothing is stored.
 
@@ -40,7 +40,7 @@ Recurrence combinations to use:
 | every 15th of the month | `MONTHLY` | *(omit)* | `15` |
 | every quarter, start of Q1 | `QUARTERLY` | `BEGIN_Q1` | `1` * |
 
-\* **Temporary API quirk:** `specific_day` is only meant to be required for `MONTHLY`, but the API currently rejects a missing `specific_day` on any recurring work (error: `"schedule.specific_day" must be a number`). Until this is fixed server-side, always send `specific_day: 1` for `WEEKLY`/`QUARTERLY` works — the value is ignored for these frequencies, so `1` carries no meaning.
+\* **Temporary API quirk** ([#31](https://github.com/WP-Umbrella/umbrella-skill/issues/31)): `specific_day` is only meant to be required for `MONTHLY`, but the API currently rejects a missing `specific_day` on any recurring work (error: `"schedule.specific_day" must be a number`). Until this is fixed server-side, always send `specific_day: 1` for `WEEKLY`/`QUARTERLY` works — the value is ignored for these frequencies, so `1` carries no meaning.
 
 ## Preconditions
 
@@ -65,9 +65,8 @@ Fill the required fields from the user's message. Ask **only** for what is missi
 - `name` — derive from the request if obvious (*"SEO work"*, *"Monthly content review"*), otherwise ask
 - `execution_date` — default to **today** when the user says "today"/"now" or gives no date; convert relative dates ("yesterday", "next Monday") to `YYYY-MM-DD` using the current date
 - `estimated_time` + `estimated_time_unit` — normalize: "30 min" → `30 MINUTES`, "2h" → `2 HOURS`, "half a day" → `4 HOURS`, "a day" → `1 DAYS`
+- `description` — required in practice until [#30](https://github.com/WP-Umbrella/umbrella-skill/issues/30) is fixed (the spec marks it optional, but the create endpoint currently returns HTTP 500 without it). **Never invent content for it.** If the user gave no detail, ask for a one-line description as part of this same question — it feeds the client-facing maintenance reports, so a real sentence beats noise. Only if the user declines ("no description", "whatever") send the work's `name` as the value.
 - Recurrence — only if the user said recurring/weekly/monthly/quarterly/every…
-
-Do not invent a `description`; leave it out unless the user provided detail. **Temporary API quirk:** the create endpoint currently returns HTTP 500 when `description` is absent (observed 2026-09-03; the spec marks it optional). Until this is fixed server-side, if the user gave no detail, send the work's `name` as the `description` — do not fabricate content beyond that.
 
 ## Step 3 — present the plan and confirm
 
@@ -76,6 +75,7 @@ This is a **mutating call** — apply the SKILL.md section 5 gate. Show the exac
 ```
 Project: <name> (ID <id>)
 Work     : Monthly content review
+Descr.   : Review and refresh cornerstone pages
 Date     : 2026-09-01
 Estimate : 2 HOURS
 Recurring: yes — MONTHLY, day 1
@@ -112,6 +112,7 @@ curl -sS -X POST \
   -H "Content-Type: application/json" \
   --data '{
     "name": "Weekly plugin update pass",
+    "description": "Update plugins and verify site health",
     "execution_date": "2026-09-01",
     "estimated_time": 30,
     "estimated_time_unit": "MINUTES",
@@ -139,7 +140,7 @@ Tell the user, per project:
 | Response | What to do |
 |---|---|
 | `400` `bad_params` | A required field is missing or an enum value is wrong (e.g. `is_recurring` omitted, `HOUR` instead of `HOURS`, `specific_day` missing on a recurring work). Re-read the table above, fix, and retry — do not re-ask for confirmation if the intended work is unchanged. |
-| `500` on create | Temporary API quirk: the endpoint fails when `description` is absent. Verify nothing was created (dashboard, or `GET /projects/{projectId}/custom-works`), then retry the same payload with `description` set to the work's `name`. |
+| `500` on create | Temporary API quirk ([#30](https://github.com/WP-Umbrella/umbrella-skill/issues/30)): the endpoint fails when `description` is absent. Verify nothing was created (dashboard, or `GET /projects/{projectId}/custom-works`), then retry the same payload with a `description` (per the Step 2 rule: ask the user for a one-liner, fall back to the work's `name`). |
 | `401` `unauthorized_request` | Token missing/invalid → `references/auth.md` |
 | `404` `not_found` | Wrong project ID → go back to Step 1 |
 | Batch: one site fails | Report which sites succeeded and which failed; do not silently retry the failed ones |

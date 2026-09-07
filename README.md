@@ -147,7 +147,8 @@ umbrella/
 │       │   ├── references/
 │       │   └── workflows/
 │       ├── sites/               # /umbrella:sites slash command
-│       └── health/              # /umbrella:health slash command
+│       ├── health/              # /umbrella:health slash command
+│       └── work/                # /umbrella:work slash command
 ├── skills/                      # ← Generated (what Claude loads)
 │   └── …                        # mirror of src/skills, compressed at build time
 ├── scripts/
