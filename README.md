@@ -23,6 +23,7 @@ WordPress agencies and maintenance professionals managing 10 to 200+ client site
 - **Get a fleet overview in one sentence.** "Which sites are down?", "Which have updates pending?", "Which have known security issues?"
 - **Run safe plugin updates.** Claude uses the WP Umbrella safe-update workflow: back up, update, check the site is healthy, roll back if anything fails.
 - **Review vulnerabilities across all sites.** Surface known CVEs, sorted by severity.
+- **Log and schedule maintenance work.** "Log 2 hours of SEO work on site X today", "Schedule a monthly content review on the 1st" — tracked custom works that feed your client reports.
 - **Stay in control.** Reading and checking runs freely. Anything that changes a site waits for your explicit confirmation.
 
 ## How does it work?
@@ -113,6 +114,7 @@ Open Claude Code in any directory and either:
 | `/umbrella:sites vulns` | Only sites with known vulnerabilities |
 | `/umbrella:sites <name>` | Search a site by name |
 | `/umbrella:health` | Fleet-wide health snapshot (totals) |
+| `/umbrella:work <site> <details>` | Log or schedule a custom maintenance work (one-time or recurring) on a site |
 
 Claude reads the relevant workflow, calls the right API endpoints with your token, and reports back.
 
@@ -145,7 +147,8 @@ umbrella/
 │       │   ├── references/
 │       │   └── workflows/
 │       ├── sites/               # /umbrella:sites slash command
-│       └── health/              # /umbrella:health slash command
+│       ├── health/              # /umbrella:health slash command
+│       └── work/                # /umbrella:work slash command
 ├── skills/                      # ← Generated (what Claude loads)
 │   └── …                        # mirror of src/skills, compressed at build time
 ├── scripts/

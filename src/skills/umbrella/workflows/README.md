@@ -9,7 +9,8 @@ Step-by-step playbooks for common user intents. Each workflow is self-contained:
 Updates, database cleanup, scheduled work.
 
 - [safe-plugin-update.md](./maintenance/safe-plugin-update.md) — update plugins with pre-flight checks, safe mode, and visual regression verification
-- *Planned:* safe-theme-update, wp-core-update, database-cleanup, custom-work-scheduling
+- [custom-work-scheduling.md](./maintenance/custom-work-scheduling.md) — log or schedule a custom maintenance work (one-time or recurring) on a project for tracking and client reports
+- *Planned:* safe-theme-update, wp-core-update, database-cleanup
 
 ### `security/` — Vulnerability management
 

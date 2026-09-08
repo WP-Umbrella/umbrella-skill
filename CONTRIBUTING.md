@@ -102,7 +102,7 @@ claude --plugin-dir .
 Then inside Claude Code:
 
 1. **Auto-invocation** — *"list my WP Umbrella sites"* → the skill should load, Claude calls the API with curl, results presented as a compact table.
-2. **Slash commands visible** — type `/umbrella` → `/umbrella:sites` and `/umbrella:health` should appear in the autocomplete.
+2. **Slash commands visible** — type `/umbrella` → `/umbrella:sites`, `/umbrella:health` and `/umbrella:work` should appear in the autocomplete.
 3. **Execute a slash command** — `/umbrella:health` → fleet-wide dashboard.
 4. **Safety rule check** — *"update plugins on site <staging_id>"* → Claude must **ask confirmation** before firing any POST. Do **not** confirm; just observe that the gate works.
 
