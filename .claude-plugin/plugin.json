@@ -1,6 +1,6 @@
 {
   "name": "umbrella",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Operate your WordPress sites through Claude using the WP Umbrella Public API. Zero-dependency skill: Claude learns the API from an embedded OpenAPI spec and calls it with curl on your behalf.",
   "author": {
     "name": "WP Umbrella",
@@ -23,7 +23,7 @@
     "token": {
       "type": "string",
       "title": "WP Umbrella API Token",
-      "description": "Your WP Umbrella Public API token. Generate one in your dashboard under Settings → Public API.",
+      "description": "Your WP Umbrella Public API token. Generate one in your dashboard under Profile → Public API (for developers). This is NOT the dashboard↔plugin connection key.",
       "sensitive": true
     }
   }

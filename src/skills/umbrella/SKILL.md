@@ -137,6 +137,7 @@ Most-used entry points:
 
 - `workflows/reporting/project-inventory.md` — list / filter / drill into sites. **Start here** whenever the user asks about their sites, needs a project ID, or wants a fleet snapshot.
 - `workflows/maintenance/safe-plugin-update.md` — update plugins with pre-flight checks, safe mode, and visual regression verification.
+- `workflows/maintenance/custom-work-scheduling.md` — log or schedule a custom maintenance work (one-time or recurring) on a project. Use when the user wants to *track/plan* work, not execute an update.
 
 When a user request doesn't match a workflow:
 1. Consult `workflows/README.md` to make sure

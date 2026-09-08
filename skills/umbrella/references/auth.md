@@ -5,9 +5,11 @@ umbrella calls the WP Umbrella Public API with a **Bearer token** tied to your a
 ## Getting a token
 
 1. Sign in at https://app.wp-umbrella.com
-2. Go to **Settings → Public API**
+2. Go to your **Profile → Public API (for developers)**
 3. Generate a new token with the `public_api` scope
 4. Copy it immediately — most UIs only show tokens once
+
+> ⚠️ **Don't confuse this with the connection key.** The Public API token (Profile → Public API for developers) is an *account-level* developer token that authenticates this plugin against the Public API. It is **not** the dashboard↔plugin **connection key** used to link an individual WordPress site to WP Umbrella. Using the connection key here will fail — and pasting the wrong secret around is a security risk.
 
 ## Storing the token
 
@@ -89,7 +91,7 @@ If you get:
 
 If you suspect the token is compromised:
 
-1. Go to *Settings → Public API* in your dashboard
+1. Go to *Profile → Public API (for developers)* in your dashboard
 2. Revoke the exposed token
 3. Generate a fresh one
 4. Update wherever you stored it (replay Option A, B, or C above)
