@@ -1,6 +1,6 @@
 {
   "name": "umbrella",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Operate your WordPress sites through Claude using the WP Umbrella Public API. Zero-dependency skill: Claude learns the API from an embedded OpenAPI spec and calls it with curl on your behalf.",
   "author": {
     "name": "WP Umbrella",
