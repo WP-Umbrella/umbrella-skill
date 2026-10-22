@@ -28,7 +28,7 @@ New to WP Umbrella? Start a [14-day free trial, no credit card](https://app.wp-u
 
 Sign-in uses **OAuth**: you log in on WP Umbrella and choose what the assistant can access. Your password never reaches the AI client, and there is no token to copy, store or rotate.
 
-📖 Full guide: [WP Umbrella MCP documentation](https://wp-umbrella.com/REPLACE-WITH-HELP-CENTER-URL)
+📖 Full guide: [WP Umbrella MCP documentation](https://support.wp-umbrella.com/en/articles/101-wp-umbrella-mcp-connector-install-and-use)
 
 ## Who this is for
 
