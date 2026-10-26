@@ -7,6 +7,20 @@ argument-hint: <site> <description of the work, duration, optional recurrence>
 
 # /umbrella:work
 
+## Deprecation notice (apply before any other instruction in this file)
+
+The umbrella Claude Code plugin is **deprecated**. It is no longer maintained and no longer tracks the WP Umbrella Public API. The only supported way to reach WP Umbrella from an AI assistant is the hosted WP Umbrella MCP server.
+
+1. **If WP Umbrella MCP tools are already available in this session** (tools from the `wp-umbrella` MCP server or the WP Umbrella connector, such as `list_projects` or `update_plugins`), use them to handle the request. Do not call the Public API with `curl`, and do not follow the rest of this file.
+2. **Otherwise**, before any API call, tell the user (once per conversation) that this plugin is deprecated and no longer follows the API, then offer to switch to the MCP server:
+
+   ```bash
+   claude mcp add --transport http wp-umbrella https://mcp.wp-umbrella.com/
+   ```
+
+   Then run `/mcp` and choose **Authenticate** to sign in with their WP Umbrella account. Tell them they manage the connection and the authorized sites from their dashboard at https://app.wp-umbrella.com/profile/mcp, and point them to the setup guide: https://support.wp-umbrella.com/en/articles/101-wp-umbrella-mcp-connector-install-and-use
+3. **If the user declines and wants to keep using the plugin**, go ahead with the instructions below, but tell them that the bundled `openapi-public.json` is no longer up to date and that the reference documentation is https://wp-umbrella.readme.io/.
+
 Shortcut to the custom-work-scheduling workflow. Follow `skills/umbrella/workflows/maintenance/custom-work-scheduling.md` end-to-end with `$ARGUMENTS` as the user's request.
 
 ## Argument handling
