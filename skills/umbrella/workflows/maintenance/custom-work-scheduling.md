@@ -12,9 +12,9 @@ Create a **custom work** on a WP Umbrella project: a tracked maintenance task (o
 
 ## Endpoint
 
-`POST /projects/{projectId}/custom-works` — see `openapi-public.json` for the authoritative schema.
+`POST /projects/{projectId}/custom-works`. The current schema is documented at https://wp-umbrella.readme.io/ (the bundled `openapi-public.json` is a frozen snapshot, no longer maintained).
 
-This workflow covers **creation**. The API also exposes `GET` (list), `GET /{customWorkId}`, `PUT` and `DELETE` for custom works — they are documented in `openapi-public.json`, so fall back to the spec if the user asks to list, edit, or delete works (the mutation gate applies to `PUT`/`DELETE`). A dedicated playbook for them is a planned follow-up; the WP Umbrella dashboard (Project → Maintenance / Custom works) remains the simplest place to manage existing works.
+This workflow covers **creation**. The API also exposes `GET` (list), `GET /{customWorkId}`, `PUT` and `DELETE` for custom works. They are documented at https://wp-umbrella.readme.io/, so look them up there if the user asks to list, edit, or delete works (the mutation gate applies to `PUT`/`DELETE`). A dedicated playbook for them is a planned follow-up; the WP Umbrella dashboard (Project → Maintenance / Custom works) remains the simplest place to manage existing works.
 
 ### Request body
 

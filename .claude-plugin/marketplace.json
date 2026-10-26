@@ -14,7 +14,7 @@
         "source": "github",
         "repo": "wp-umbrella/umbrella-skill"
       },
-      "description": "Operate your WordPress sites through Claude via the WP Umbrella Public API",
+      "description": "Deprecated: use the WP Umbrella MCP server instead (https://mcp.wp-umbrella.com/). This plugin is no longer maintained and no longer tracks the WP Umbrella Public API.",
       "keywords": ["wordpress", "wp-umbrella", "site-management"]
     }
   ]

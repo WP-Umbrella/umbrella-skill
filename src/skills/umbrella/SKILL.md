@@ -5,6 +5,20 @@ description: Manage WordPress sites through the WP Umbrella Public API. Use when
 
 # Umbrella skill
 
+## Deprecation notice (apply before any other instruction in this file)
+
+The umbrella Claude Code plugin is **deprecated**. It is no longer maintained and no longer tracks the WP Umbrella Public API. The only supported way to reach WP Umbrella from an AI assistant is the hosted WP Umbrella MCP server.
+
+1. **If WP Umbrella MCP tools are already available in this session** (tools from the `wp-umbrella` MCP server or the WP Umbrella connector, such as `list_projects` or `update_plugins`), use them to handle the request. Do not call the Public API with `curl`, and do not follow the rest of this file.
+2. **Otherwise**, before any API call, tell the user (once per conversation) that this plugin is deprecated and no longer follows the API, then offer to switch to the MCP server:
+
+   ```bash
+   claude mcp add --transport http wp-umbrella https://mcp.wp-umbrella.com/
+   ```
+
+   Then run `/mcp` and choose **Authenticate** to sign in with their WP Umbrella account. Tell them they manage the connection and the authorized sites from their dashboard at https://app.wp-umbrella.com/profile/mcp, and point them to the setup guide: https://support.wp-umbrella.com/en/articles/101-wp-umbrella-mcp-connector-install-and-use
+3. **If the user declines and wants to keep using the plugin**, go ahead with the instructions below, but tell them that the bundled `openapi-public.json` is no longer up to date and that the reference documentation is https://wp-umbrella.readme.io/.
+
 You are assisting a user who manages WordPress sites through **WP Umbrella**. When the user asks you to do anything involving their sites (listing, diagnosing, updating, etc.), use this skill to call the WP Umbrella Public API directly with `curl`.
 
 **Respond to the user in the language they used** (French, English, Spanish, etc.). Internal skill content, endpoint names, and JSON keys stay in English — but your explanations, questions, and summaries match the user's language.
@@ -32,11 +46,11 @@ If none is set, **stop** and walk the user through `references/auth.md`. Do not 
 https://public-api.wp-umbrella.com
 ```
 
-## 3. Authoritative schema
+## 3. API schema (frozen snapshot)
 
-The complete, up-to-date API schema lives in `openapi-public.json` (sibling of this file). **Always consult it** before constructing a request — it defines exact paths, required fields, enum values, and response shapes.
+`openapi-public.json` (sibling of this file) is a **frozen snapshot** of the API schema, taken on 2026-09-03 and no longer maintained. It is incomplete: the Public API has gained endpoints since, and existing ones may have changed. Use it only as a starting point and check https://wp-umbrella.readme.io/ for the current paths, fields, enum values, and response shapes. When the two disagree, the online documentation wins.
 
-The resources currently exposed (one tag per resource):
+The resources covered by the snapshot (one tag per resource):
 
 | Tag | Purpose |
 |---|---|
@@ -120,7 +134,7 @@ All list endpoints use `?page=N&per_page=M` (default `per_page=10`, max varies b
 ```
 
 On `401`: the token is missing/invalid/expired — point user to `references/auth.md`.
-On `bad_params`: re-read `openapi-public.json` for the exact schema, fix, and retry.
+On `bad_params`: check the endpoint at https://wp-umbrella.readme.io/ for the exact schema, fix, and retry.
 
 ## 9. Workflows
 
@@ -141,7 +155,7 @@ Most-used entry points:
 
 When a user request doesn't match a workflow:
 1. Consult `workflows/README.md` to make sure
-2. Fall back to `openapi-public.json` for endpoint details
+2. Look up the endpoint at https://wp-umbrella.readme.io/ (the bundled `openapi-public.json` is a frozen snapshot and may be missing it)
 3. Always confirm with the user before any mutating call
 
 ## 10. Reducing permission friction — one-time session tip
