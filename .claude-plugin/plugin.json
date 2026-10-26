@@ -1,7 +1,7 @@
 {
   "name": "umbrella",
-  "version": "0.2.2",
-  "description": "Operate your WordPress sites through Claude using the WP Umbrella Public API. Zero-dependency skill: Claude learns the API from an embedded OpenAPI spec and calls it with curl on your behalf.",
+  "version": "0.3.0",
+  "description": "Deprecated: use the WP Umbrella MCP server instead (https://mcp.wp-umbrella.com/). This plugin is no longer maintained and no longer tracks the WP Umbrella Public API. It operated your WordPress sites through Claude by calling the Public API with curl.",
   "author": {
     "name": "WP Umbrella",
     "email": "support@wp-umbrella.com",
